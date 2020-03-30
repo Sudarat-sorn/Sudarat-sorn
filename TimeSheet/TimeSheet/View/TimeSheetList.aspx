@@ -1,8 +1,9 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="TimeSheet.View.Home" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="TimeSheetList.aspx.cs" Inherits="TimeSheet.View.Home" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="row">
         <div class="col" style="padding-top: 20px">
+            <asp:Button ID="btnQuery" runat="server" onclick="btnQuery_Click"/>
             <asp:GridView ID="gvSheet" BorderWidth="0" GridLines="None" runat="server" AutoGenerateColumns="false" CssClass="table">
                 <Columns>
                     <asp:BoundField DataField="Id" HeaderText="Id" />
