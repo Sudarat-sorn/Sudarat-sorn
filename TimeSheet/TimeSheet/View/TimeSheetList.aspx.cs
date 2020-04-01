@@ -16,48 +16,55 @@ namespace TimeSheet.View
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                bindDataSheet();
-            }
+
         }
 
         void bindDataSheet()
         {
-            TimeSheetClass tc = new TimeSheetClass();
-            gvSheet.DataSource = tc.GetTimeSheet();
-            gvSheet.DataBind();
+            //TimeSheetClass tc = new TimeSheetClass();
+            //gvSheet.DataSource = tc.getTimeSheet();
+            //gvSheet.DataBind();
         }
 
         protected void btnQuery_Click(object sender, EventArgs e)
         {
-            string connStr = WebConfigurationManager.ConnectionStrings["connStrMyDB"].ConnectionString;
-            var objConn = new SqlConnection(connStr);
-            objConn.Open();
+            //string connStr = WebConfigurationManager.ConnectionStrings["connStrMyDB"].ConnectionString;
+            //var objConn = new SqlConnection(connStr);
+            //objConn.Open();
 
-            SqlDataAdapter dtAdapter;
+            //StreamReader StrWer;
+            //StrWer = File.OpenText(Server.MapPath("Sheet/") + "NewSheet.txt");
+            //while (!(StrWer.EndOfStream))
+            //{
+            //    this.lblText.Text = this.lblText.Text + StrWer.ReadLine() + "<br>";
+            //}
+            //StrWer.Close();
+            string txtPath = Server.MapPath("Sheet/") + "NewSheet.txt";
+  
             DataTable dt = new DataTable();
-            string SelectSQL = "SELECT * FROM RecordDetail";
-            dtAdapter = new SqlDataAdapter(SelectSQL, objConn);
-            dtAdapter.Fill(dt);
-            var count = dt.Rows.Count.ToString();
-            var Total_Colume = Int32.Parse(count);
-
-            StreamWriter StrWer = default(StreamWriter);
-
-            StrWer = File.CreateText(Server.MapPath("Sheet/") + "NewSheet.txt");
-            for (int i = 0; i <= Total_Colume - 1; i++)
+            dt.Columns.AddRange(new DataColumn[6] { new DataColumn("Id", typeof(int)),
+                                new DataColumn("ProjectId", typeof(string)),
+                                new DataColumn("Username", typeof(string)),
+                                new DataColumn("Description", typeof(string)),
+                                new DataColumn("Hours",typeof(float)),
+                                new DataColumn ("CreatedDate",typeof(string))});
+ 
+            string txtData = File.ReadAllText(txtPath);
+            foreach (string row in txtData.Split('\n'))
             {
-                StrWer.Write(dt.Rows[i]["Id"].ToString() + "|");
-                StrWer.Write(dt.Rows[i]["ProjectId"].ToString() + "|");
-                StrWer.Write(dt.Rows[i]["Username"].ToString() + "|");
-                StrWer.Write(dt.Rows[i]["Description"].ToString() + "|");
-                StrWer.Write(dt.Rows[i]["Hours"].ToString() + "|");
-                StrWer.Write(dt.Rows[i]["CreatedDate"].ToString());
-                StrWer.WriteLine("");
-            }
-
-            StrWer.Close();
+                if (!string.IsNullOrEmpty(row))
+                {
+                    dt.Rows.Add();
+                    int i = 0;
+                    foreach (string cell in row.Split('|'))
+                    {
+                        dt.Rows[dt.Rows.Count - 1][i] = cell;
+                        i++;
+                    }
+                }
+            } 
+            gvSheet.DataSource = dt;
+            gvSheet.DataBind();
         }
     }
 }

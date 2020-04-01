@@ -1,27 +1,7 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="TimeSheet.SiteMaster" %>
-<%@ Import Namespace="System.IO"%>
+
+<%@ Import Namespace="System.IO" %>
 <!DOCTYPE html>
-<%--<script runat="server">
-    void Page_Load(object sender, EventArgs e)
-    {
-        StreamWriter StrWer = default(StreamWriter);
-        try
-        {
-            StrWer = File.CreateText(Server.MapPath("MyFiles/") + "thaicreate.txt");
-            StrWer.Write("www.ThaiCreate.Com");
-            StrWer.Write("Version 2009");
-            StrWer.WriteLine("");
-            StrWer.WriteLine("www.ThaiCreate.Com");
-            StrWer.WriteLine("Version 2009");
-            StrWer.Close();
-            //this.lblStatus.Text = "Files Writed.";
-        }
-        catch (Exception ex)
-        {
-            //this.lblStatus.Text = "Write failed. (" + ex.Message + ")";
-        }
-    }
-</script>--%>
 <html lang="en">
 <head runat="server">
     <meta charset="utf-8" />
@@ -32,10 +12,41 @@
         <%: Scripts.Render("~/bundles/modernizr") %>
 
     </asp:PlaceHolder>
-
     <webopt:BundleReference runat="server" Path="~/Content/css" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <style>
+        div#success-alert, div#danger-alert {
+            width: 80%;
+            position: fixed;
+            margin: auto;
+            display: none;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
 
+        .card {
+            margin: 0 auto;
+            float: none;
+            margin-top:10px;
+            margin-bottom: 10px;
+        }
+    </style>
+    <script>
+        function showAlertSuccess(msg) {
+            $("#success-alert").text(msg);
+            $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
+                $("#success-alert").slideUp(500);
+            });
+        }
+        function showAlertError(msg) {
+            $("#danger-alert").text(msg);
+            $("#danger-alert").fadeTo(2000, 500).slideUp(500, function () {
+                $("#danger-alert").slideUp(500);
+            });
+        }
+    </script>
 </head>
 <body>
     <form runat="server">
@@ -60,36 +71,25 @@
         </asp:ScriptManager>
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <a class="navbar-brand" href="#">Time Sheet Management</a>
+            <h3 class="navbar-brand">Time Sheet Management</h3>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/View/TimeSheetList.aspx">TimeSheet List</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                        <a class="nav-link" href="/View/InsertTimeSheet.aspx">Insert TimeSheet</a>
                     </li>
                 </ul>
             </div>
         </nav>
-        <div class="container body-content">
+        <div class="container body-content navbar-fixed">
+            <div class="alert alert-success" id="success-alert"></div>
+            <div class="alert alert-danger" id="danger-alert"></div>
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
             <hr />
