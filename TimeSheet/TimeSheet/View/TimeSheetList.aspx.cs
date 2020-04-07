@@ -19,28 +19,11 @@ namespace TimeSheet.View
 
         }
 
-        void bindDataSheet()
-        {
-            //TimeSheetClass tc = new TimeSheetClass();
-            //gvSheet.DataSource = tc.getTimeSheet();
-            //gvSheet.DataBind();
-        }
-
         protected void btnQuery_Click(object sender, EventArgs e)
         {
-            //string connStr = WebConfigurationManager.ConnectionStrings["connStrMyDB"].ConnectionString;
-            //var objConn = new SqlConnection(connStr);
-            //objConn.Open();
-
-            //StreamReader StrWer;
-            //StrWer = File.OpenText(Server.MapPath("Sheet/") + "NewSheet.txt");
-            //while (!(StrWer.EndOfStream))
-            //{
-            //    this.lblText.Text = this.lblText.Text + StrWer.ReadLine() + "<br>";
-            //}
-            //StrWer.Close();
+            
             string txtPath = Server.MapPath("Sheet/") + "NewSheet.txt";
-  
+
             DataTable dt = new DataTable();
             dt.Columns.AddRange(new DataColumn[6] { new DataColumn("Id", typeof(int)),
                                 new DataColumn("ProjectId", typeof(string)),
@@ -48,7 +31,7 @@ namespace TimeSheet.View
                                 new DataColumn("Description", typeof(string)),
                                 new DataColumn("Hours",typeof(float)),
                                 new DataColumn ("CreatedDate",typeof(string))});
- 
+
             string txtData = File.ReadAllText(txtPath);
             foreach (string row in txtData.Split('\n'))
             {
@@ -62,7 +45,7 @@ namespace TimeSheet.View
                         i++;
                     }
                 }
-            } 
+            }
             gvSheet.DataSource = dt;
             gvSheet.DataBind();
         }

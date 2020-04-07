@@ -8,11 +8,12 @@ using System.Web;
 using System.Web.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using TimeSheet.Controller;
 using TimeSheet.Repositories;
 
 namespace TimeSheet.View
 {
-    public partial class InsertTimeSheet : System.Web.UI.Page
+    public partial class InsertTimeSheet : BaseRequest
     {
 
         protected void Page_Load(object sender, EventArgs e)
@@ -56,7 +57,6 @@ namespace TimeSheet.View
 
                 DateTime timestamp = DateTime.Now;
                 string timenow = timestamp.ToString("yyyy-MM-dd HH:mm:ss");
-                string SheetName = Guid.NewGuid().ToString();
                 TimeSheetClass TcClass = new TimeSheetClass();
                 TimeSheetModel data = new TimeSheetModel()
                 {
@@ -112,14 +112,6 @@ namespace TimeSheet.View
 
             }
 
-        }
-        void showAlertSuccess(string key, string msg)
-        {
-            ClientScript.RegisterStartupScript(GetType(), key, "showAlertSuccess('" + msg + "');", true);
-        }
-        void showAlertError(string key, string msg)
-        {
-            ClientScript.RegisterStartupScript(GetType(), key, "showAlertError('" + msg + "');", true);
         }
     }
 }

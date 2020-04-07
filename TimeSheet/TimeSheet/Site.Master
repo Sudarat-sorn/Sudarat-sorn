@@ -29,7 +29,7 @@
         .card {
             margin: 0 auto;
             float: none;
-            margin-top:10px;
+            margin-top: 10px;
             margin-bottom: 10px;
         }
     </style>
@@ -46,6 +46,7 @@
                 $("#danger-alert").slideUp(500);
             });
         }
+
     </script>
 </head>
 <body>
@@ -70,19 +71,20 @@
             </Scripts>
         </asp:ScriptManager>
 
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <h3 class="navbar-brand">Time Sheet Management</h3>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/View/TimeSheetList.aspx">TimeSheet List</a>
+                        <a class="nav-link" href="/View/TimeSheetList.aspx">List</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/View/InsertTimeSheet.aspx">Insert TimeSheet</a>
+                        <a class="nav-link" href="/View/InsertTimeSheet.aspx">Insert</a>
                     </li>
                 </ul>
             </div>
